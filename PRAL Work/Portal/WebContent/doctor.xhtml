@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<title>Doctor Home</title>
+		<link rel="stylesheet" type="text/css" href="resources/css/Style.css"/>
+	</h:head>
+
+	<h:body styleClass="bgImage">
+	
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Vitals" onclick="PF('vitals').show(); PF('test').hide(); PF('leave').hide();"></p:menuitem>
+			<p:menuitem value="Test" onclick="PF('test').show(); PF('vitals').hide(); PF('leave').hide();"></p:menuitem>
+			<p:menuitem value="Leave" onclick="PF('leave').show(); PF('vitals').hide(); PF('test').hide();"></p:menuitem>
+			<p:menuitem value="Appointment Records" url="appointmentrecords.xhtml"></p:menuitem>
+			<p:menuitem value="Patient Records" url="patientrecords.xhtml"></p:menuitem>
+		</p:menubar>
+	</h:form>
+		<!-- Vitals Dialog starts -->
+		<p:dialog styleClass="bgImage" header="Appointment" widgetVar="vitals" showEffect="explode" hideEffect="bounce" height="400" width="500">
+			<h:form>
+		
+			<p:panel styleClass="bgImage">
+				<p:panelGrid columns="2" styleClass="bgImage">
+					
+					<f:facet name="header"> Add Vitals </f:facet>
+					
+					<p:outputLabel value="Bp High"></p:outputLabel>
+					<p:inputText value="#{vitals.vitalsBean.vitals.bpHigh}"></p:inputText>
+					
+					<p:outputLabel value="Bp Low"></p:outputLabel>
+					<p:inputText value="#{vitals.vitalsBean.vitals.bpLow}"></p:inputText>
+					
+					<p:outputLabel value="Heart Rate"></p:outputLabel>
+					<p:inputText value="#{vitals.vitalsBean.vitals.heartBeat}"></p:inputText>
+					
+					<p:outputLabel value="Respiratory Rate"></p:outputLabel>
+					<p:inputText value="#{vitals.vitalsBean.vitals.respiratoryRate}"></p:inputText>
+					
+					<p:outputLabel value="Sugar"></p:outputLabel>
+					<p:inputText value="#{vitals.vitalsBean.vitals.suger}"></p:inputText>
+					
+					<p:outputLabel value="Temperature"></p:outputLabel>
+					<p:inputText value="#{vitals.vitalsBean.vitals.temperature}"></p:inputText>
+					
+					<p:outputLabel value="Appointment Id"></p:outputLabel>
+					<p:selectOneMenu value="#{vitals.vitalsBean.appointmentId}">
+						<f:selectItems value="#{vitals.appointmentIds}"></f:selectItems>
+					</p:selectOneMenu>
+					
+					<f:facet name="footer">
+						<p:commandButton value="Add Vitals" action="#{vitals.addVitals}"></p:commandButton>
+					</f:facet>
+					
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+		</p:dialog>
+	<!-- Appointment Dialog ends -->
+	
+	<!-- Follow up dialog starts -->
+	<p:dialog styleClass="bgImage" header="Test" widgetVar="test" showEffect="explode" hideEffect="bounce" height="210" width="500">
+		<h:form>
+			<p:panel styleClass="bgImage">
+				<p:panelGrid columns="2" styleClass="bgImage">
+					<f:facet name="header"> Add Test </f:facet>
+					
+					<p:outputLabel value="Test Fee"></p:outputLabel>
+					<p:inputText value="#{TestManageBean.testBean.test.testFee}"></p:inputText>
+					
+					<p:outputLabel value="Test Name"></p:outputLabel>
+					<p:inputText value="#{TestManageBean.testBean.test.testName}"></p:inputText>
+					
+					<p:outputLabel value="Appointment Id"></p:outputLabel>
+					<p:selectOneMenu value="#{TestManageBean.testBean.appointmentId}">
+						<f:selectItems value="#{TestManageBean.appointmentIds}"></f:selectItems>
+					</p:selectOneMenu>
+					
+					<f:facet name="footer">
+						<p:commandButton value="Add Test" action="#{TestManageBean.addTest}" icon="ui-icon-check"></p:commandButton>
+					</f:facet>
+					
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	<!-- Follow Up ends -->
+	
+	<!-- Leave dialog starts -->
+	<p:dialog styleClass="bgImage" header="Leave" widgetVar="leave" showEffect="explode" hideEffect="bounce" height="210" width="500">
+		<h:form>
+			<p:panel styleClass="bgImage">
+				<p:panelGrid columns="2" styleClass="bgImage">
+					
+					<f:facet name="header">Leave Form</f:facet>
+					
+					<p:outputLabel value="Starting Date"></p:outputLabel>
+					<p:calendar value="#{holiday.holidayWrapper.holiday.startDate}"></p:calendar>
+					
+					<p:outputLabel value="Ending Date"></p:outputLabel>
+					<p:calendar value="#{holiday.holidayWrapper.holiday.endDate}"></p:calendar>
+					
+					<h:outputText value="Doctor Id"></h:outputText>
+					<p:selectOneMenu value="#{holiday.holidayWrapper.doctorId}">
+						<f:selectItems value="#{holiday.doctorIds}"></f:selectItems>
+					</p:selectOneMenu>
+					
+					<f:facet name="footer">
+						<p:commandButton value="Create Holidays" action="#{holiday.createHolidays}" icon="ui-icon-check"></p:commandButton>
+					</f:facet>
+					
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	<!-- Leave ends -->
+	
+	
+	</h:body>
+
+</html>

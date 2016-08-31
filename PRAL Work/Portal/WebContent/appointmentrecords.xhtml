@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+>
+
+	<h:head>
+		<title>Appointment Records</title>
+		<h:outputStylesheet library="css" name="Style.css"  /> 
+	</h:head>
+
+	<h:body class="bgImage">
+
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Vitals" onclick="PF('vitals').show(); PF('test').hide(); PF('leave').hide();"></p:menuitem>
+			<p:menuitem value="Test" onclick="PF('test').show(); PF('vitals').hide(); PF('leave').hide();"></p:menuitem>
+			<p:menuitem value="Leave" onclick="PF('leave').show(); PF('vitals').hide(); PF('test').hide();"></p:menuitem>
+			<p:menuitem value="Appointment Records" url="appointmentrecords.xhtml"></p:menuitem>
+			<p:menuitem value="Patient Records" url="patientrecords.xhtml"></p:menuitem>
+		</p:menubar>
+	</h:form>
+	<br/><br/>
+
+	
+	<p:panel header="Appointment Records" styleClass="bgImage">
+		<p:dataTable styleClass="leftside" var="apt" value="#{appointmentrecords.appointments}">
+		    <p:column headerText="Date" styleClass="bgheader">
+		        <h:outputText value="#{apt.appointmentDate}" />
+		    </p:column>
+		 
+		    <p:column headerText="Doctor">
+		        <h:outputText value="#{apt.doctor.name}" />
+		    </p:column>
+		 
+		    <p:column headerText="Patient">
+		        <h:outputText value="#{apt.patient.name}" />
+		    </p:column>
+		</p:dataTable>
+		</p:panel>
+	</h:body>
+
+</html>

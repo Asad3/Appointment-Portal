@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<title>Home</title>
+		<link rel="stylesheet" type="text/css" href="resources/css/Style.css"/>
+		<link rel="stylesheet" type="text/css" href="resources/css/Home.css"/>
+	</h:head>
+
+	<h:body class="bgImage">
+	<p:growl id="msg" autoUpdate="true"/>
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Registration">
+				<p:menuitem value="Patient" onclick="PF('dlg3').show(); PF('doctor').hide();"></p:menuitem>
+				<p:menuitem value="Doctor" onclick="PF('doctor').show(); PF('dlg3').hide();"></p:menuitem>
+			</p:submenu>	
+			<p:menuitem value="Patient Records" url="patientrecords.xhtml"></p:menuitem>
+			<p:menuitem value="Doctor Records" url="doctorrecords.xhtml"></p:menuitem>
+			<p:menuitem value="Appointment Records" url="appointmentrecords.xhtml"></p:menuitem>
+			<p:menuitem value="Logout"></p:menuitem>
+		</p:menubar>
+		</h:form>
+		<br/><br/>
+		<p:dialog styleClass="bgImage" header="Sign Up" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="245" width="385">
+			<h:form>
+			<p:panelGrid columns="2">
+				
+				<h:outputText value=" Name "></h:outputText>
+				<p:inputText value="#{patient.patient.name}" required="true" requiredMessage="Name can't empty" validatorMessage="Name can't contain alphabets">
+					<f:validateRegex pattern="^[a-zA-Z]+$" />
+				</p:inputText>
+				
+				<h:outputText value="Address"></h:outputText>
+				<p:inputText value="#{patient.patient.address}" required="true" requiredMessage="Address can't empty"></p:inputText>
+				
+				<h:outputText value="Email "></h:outputText>
+				<p:inputText value="#{patient.patient.email}" required="true" requiredMessage="Email can't empty" validatorMessage="Email is incorrect">
+					<f:validateRegex pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+				</p:inputText>
+				
+				<h:outputText value="Age "></h:outputText>
+				<p:inputText value="#{patient.patient.age}" required="true" requiredMessage="Age can't empty" validatorMessage="Age is between 1 or 3 digit">
+					<f:validateLength minimum="1" maximum="3"></f:validateLength>
+				</p:inputText>
+				
+				<h:outputText value=" Password"></h:outputText>
+				<p:password value="#{patient.patient.password}" required="ture" requiredMessage="Password can't empty" validatorMessage="Password lenght is atleast 6 characters">
+					<f:validateLength minimum="6"  />
+				</p:password>
+				
+				<f:facet name="footer">
+					<p:commandButton value="Register" action="#{patient.addPatient}" icon="ui-icon-check"></p:commandButton>
+				</f:facet>
+				
+			</p:panelGrid>
+	</h:form>
+		</p:dialog>
+		
+		<p:dialog  header="Sign Up" widgetVar="doctor" showEffect="explode" hideEffect="bounce" height="280" width="420" >
+		<h:form >
+			<p:panelGrid columns="2" styleClass="panelcolor">
+				
+				
+				<h:outputText value=" Name "></h:outputText>
+				<p:inputText value="#{doctor.doctor.name}"></p:inputText>
+				
+				<h:outputText value="Address"></h:outputText>
+				<p:inputText value="#{doctor.doctor.address}"></p:inputText>
+				
+				<h:outputText value="Email "></h:outputText>
+				<p:inputText value="#{doctor.doctor.email}"></p:inputText>
+				
+				<h:outputText value="Age "></h:outputText>
+				<p:inputText value="#{doctor.doctor.age}"></p:inputText>
+				
+				<h:outputText value=" Password "></h:outputText>
+				<p:password value="#{doctor.doctor.password}"></p:password>
+				
+				<h:outputText value=" Specialization "></h:outputText>
+				<p:inputText value="#{doctor.doctor.specialization}"></p:inputText>
+
+				<f:facet name="footer">
+					<p:commandButton value="Register" action="#{doctor.addDoctor}" icon="ui-icon-check"></p:commandButton>
+				</f:facet>
+				
+			</p:panelGrid>
+	</h:form>
+		</p:dialog>
+	</h:body>
+
+</html>

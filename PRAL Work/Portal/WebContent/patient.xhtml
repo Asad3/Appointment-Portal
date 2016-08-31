@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<title>Patient Home</title>
+		<link rel="stylesheet" type="text/css" href="resources/css/Style.css"/>
+	</h:head>
+
+	<h:body styleClass="bgImage">
+	<p:growl id="msg" autoUpdate="true"/>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Appointment" onclick="PF('apt').show(); PF('follow').hide();"></p:menuitem>
+			<p:menuitem value="Follow" onclick="PF('follow').show(); PF('apt').hide();"></p:menuitem>
+			<p:menuitem value="Doctor Records" url="doctorrecords.xhtml"></p:menuitem>
+		</p:menubar>
+		</h:form>
+		<!-- Appointment Dialog starts -->
+		<p:dialog styleClass="bgImage" header="Appointment" widgetVar="apt" showEffect="explode" hideEffect="bounce" height="250" width="500">
+			<h:form>
+			<p:panel styleClass="bgImage" header="Take Appointment">
+				<p:panelGrid columns="2">
+					
+					<p:outputLabel value="Appointment Date"></p:outputLabel>
+					<p:calendar value="#{ManageAppointment.appointmentBean.appointment.appointmentDate}"></p:calendar>
+					
+					<h:outputText value="Patient Id "></h:outputText>
+					<p:selectOneMenu value="#{ManageAppointment.appointmentBean.patientId}">
+						<f:selectItems value="#{ManageAppointment.patientIds}"></f:selectItems>
+					</p:selectOneMenu>
+					
+					<h:outputText value="Doctor Id "></h:outputText>
+					<p:selectOneMenu value="#{ManageAppointment.appointmentBean.doctorId}">
+						<f:selectItems value="#{ManageAppointment.doctorIds}"></f:selectItems>
+					</p:selectOneMenu>
+					
+					<f:facet name="footer">
+						<p:commandButton value="Take Appointment" action="#{ManageAppointment.createAppointment}" icon="ui-icon-check"></p:commandButton>
+					</f:facet>
+					
+				</p:panelGrid>
+			</p:panel>
+			
+		</h:form>
+		</p:dialog>
+	<!-- Appointment Dialog ends -->
+	
+	<!-- Follow up dialog starts -->
+	<p:dialog styleClass="bgImage" header="Follow Up" widgetVar="follow" showEffect="explode" hideEffect="bounce" height="170" width="430">
+	<h:form>
+		
+			<p:panelGrid columns="2">
+				<f:facet name="header">Follow Up Form</f:facet>
+								
+				<p:outputLabel value="Follow Up Date"></p:outputLabel>				
+				<p:calendar value="#{followUpBean.followUpWrapper.followUp.followUpDate}" yearRange="c-100:c" navigator="true"></p:calendar>
+				
+				<h:outputText value="Appointment Id"></h:outputText>
+				<p:selectOneMenu value="#{followUpBean.followUpWrapper.appointmentId}">
+					<f:selectItems value="#{followUpBean.appointmentIds}"></f:selectItems>
+				</p:selectOneMenu>
+				
+				<f:facet name="footer">
+					<p:commandButton value="Create Follow Up" action="#{followUpBean.createFollowUp}" icon="ui-icon-check"></p:commandButton>
+				</f:facet>
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+	</h:body>
+
+</html>

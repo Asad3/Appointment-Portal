@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+>
+
+	<h:head>
+		<title>Follow Up Records</title>
+		<h:outputStylesheet library="css" name="Style.css"  /> 
+	</h:head>
+
+	<h:body class="bgTable">
+
+	<p:menubar>
+			<p:submenu label="Patient">
+				<p:menuitem value="Add Patient" url="PatientRegistration.xhtml"></p:menuitem>
+				<p:menuitem value="Patient Records" url="PatientRecords.xhtml"></p:menuitem>
+			</p:submenu>
+			<p:submenu label="Doctor">
+				<p:menuitem value="Add Doctor" url="DoctorRegistration.xhtml"></p:menuitem>
+				<p:menuitem value="DoctorRecords" url="doctorrecords.xhtml"></p:menuitem>
+			</p:submenu>		
+			<p:submenu label="Appointment">
+				<p:menuitem value="Take Appointment" url="Appointment.xhtml"></p:menuitem>
+				<p:menuitem value="Appointment Records" url="appointmentrecords.xhtml"></p:menuitem>
+			</p:submenu>
+			<p:submenu label="Test">
+				<p:menuitem value="Prescribr Test" url="Test.xhtml"></p:menuitem>
+				<p:menuitem value="Test Records" url="testrecords.xhtml"></p:menuitem>
+			</p:submenu>
+			<p:submenu label="Vitals">
+				<p:menuitem value="Add Vitals" url="addvitals.xhtml"></p:menuitem>
+				<p:menuitem value="Vitals Records" url="vitalsrecords.xhtml"></p:menuitem>
+			</p:submenu>
+			<p:submenu label="Follow Up">
+				<p:menuitem value="Take Follow Up" url="PFollowUp.xhtml"></p:menuitem>
+				<p:menuitem value="Follow Up Records" url="followuprecords.xhtml"></p:menuitem>
+			</p:submenu>
+			<p:submenu label="Leave">
+				<p:menuitem value="Take Leave" url="Leave.xhtml"></p:menuitem>
+				<p:menuitem value="Leave Records" url="leaverecords.xhtml"></p:menuitem>
+			</p:submenu>
+		</p:menubar>
+	<br/><br/>
+	<p:panel header="Follow Up Records" styleClass="bgImage">
+		<p:dataTable var="follow" value="#{followuprecords.followUps}" styleClass="bgImage">
+		    <p:column headerText="Follow Up Date" styleClass="bgheader">
+		        <h:outputText value="#{follow.followUpDate}" />
+		    </p:column>
+		 
+		    <p:column headerText="Doctor">
+		        <h:outputText value="#{follow.appointment.doctor.firstName}" />
+		    </p:column>
+		 
+		    <p:column headerText="Patient">
+		        <h:outputText value="#{follow.appointment.patient.firstName}" />
+		    </p:column>
+		   
+		    
+		</p:dataTable>
+		</p:panel>
+	</h:body>
+
+</html>
