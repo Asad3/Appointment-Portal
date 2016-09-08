@@ -8,8 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.event.RowEditEvent;
-
 import com.dao.PatientDao;
 import com.data.Patient;
 
@@ -20,7 +18,8 @@ public class PatientRecords {
 	ArrayList<Patient> patients = new ArrayList<Patient>();
 	Patient updatePateint = new Patient();
 	Patient newPatient = new Patient();
-	
+	int min = 0;
+	int max = 3;
 	
 
 	
@@ -51,36 +50,27 @@ public class PatientRecords {
 	@PostConstruct
 	public void init(){
 		PatientDao patientDao = new PatientDao();
-		patients = patientDao.getAllPatients();
+		patients = patientDao.getAllPatients(min,max);
 	}
 	
-	public void onRowEdit(RowEditEvent event) {
-        Patient patient = ((Patient) event.getObject());
-        PatientDao patientDao = new PatientDao();
-        patientDao.updatePatient(patient);
-		FacesMessage msg = new FacesMessage("Patient Edited","");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        
-    }
-     
-    public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
+	
 
     public void removePatient(Patient patient) {
+    	
     	PatientDao patientDao = new PatientDao();
     	patientDao.deletePatient(patient);
     	FacesMessage msg = new FacesMessage("Patient is deleted");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-    	patients = patientDao.getAllPatients();
+    	patients = patientDao.getAllPatients(min,max);
      }
     
     public void updatePatient(){
         PatientDao patientDao = new PatientDao();
+        //updatePateint.setPassword("123");
         patientDao.updatePatient(updatePateint);
 		FacesMessage msg = new FacesMessage("Patient Edited","");
         FacesContext.getCurrentInstance().addMessage(null, msg);
+//        patients.add(updatePateint);
     }
     
     public void addNewPatient(){
@@ -90,4 +80,11 @@ public class PatientRecords {
     	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Patient is added", ""));
     }
     
+    public void test(){
+    	min = max+1;
+    	max += 3;
+    	PatientDao patientDao = new PatientDao();
+    	patients = new ArrayList<Patient>();
+		patients = patientDao.getAllPatients(min,max);
+    }
 }
