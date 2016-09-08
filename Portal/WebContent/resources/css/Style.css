@@ -1,0 +1,61 @@
+.bgImage{
+	background-image: url("../../images/apt.jpg");
+	background-repeat:no-repeat; 
+  	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-attachment: fixed;
+    background-position: center; 
+}
+
+.panelcolor{
+	background-color:#3B5998;
+}
+
+.leftside{
+	margin-left: 50px;
+	margin-right: 50px;
+	width: 1200px;
+}
+
+
+.mid{
+	width:1000px;
+	margin-left: 170px;
+}
+
+.txtwidth{
+	width:830px;
+}
+
+.popup{
+	width:200px;
+	height:800px;
+}
+
+.bgColor{
+	background-color: #3b5998;
+}
+
+.font{
+	color:white;
+}
+
+.ui-panelgrid td {
+    background-color: #1B714F !important;
+    
+}
+.ui-panelgrid tr {
+    border: #1B714F
+}
+.ui-dialog {
+    background-color: #1B714F !important;
+}
+.ui-outputText {
+	color:white;
+}
+
+.ui-datatable {
+	background-color: #1B714F !important;
+}
