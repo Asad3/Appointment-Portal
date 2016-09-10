@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui" 
+xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+	<h:form id="aptt">
+		<p:dataTable id="aptlist" styleClass="leftside" var="apt" value="#{appointmentrecords.appointments}">
+		    <p:column headerText="Date" styleClass="bgheader">
+		        <h:outputText value="#{apt.appointmentDate}" />
+		    </p:column>
+		 
+		    <p:column headerText="Doctor">
+		        <h:outputText value="#{apt.doctor.name}" />
+		    </p:column>
+		 
+		    <p:column headerText="Patient">
+		        <h:outputText value="#{apt.patient.name}" />
+		    </p:column>
+		    
+		   
+		</p:dataTable>
+	</h:form>
+</ui:composition>

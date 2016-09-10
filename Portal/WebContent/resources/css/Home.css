@@ -1,0 +1,33 @@
+.panelImage{
+	background-image: url("../../apt.jpg");
+	
+}
+.leftPanel{
+	width:200px;
+	margin-left: 970px;
+	margin-top: -500px;
+}
+.appointmentHeaderGrid.ui-panelgrid>*>tr,
+.companyHeaderGrid.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}
+
+.header td {
+	border: none;
+}
+
+.meanucolor{
+	background-color:#3B5998;
+}
+
+.font{
+	color:white;
+}
+
+.dialog{
+	height: 200px;
+}
+
+.ui-panelgrid{
+	background-color: red; 	
+}

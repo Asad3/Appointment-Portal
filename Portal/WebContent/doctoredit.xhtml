@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui" 
+xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+	<h:form id="form">
+	<p:growl id="msgs" showDetail="true"/>
+		<p:dataTable id="doctorTable" styleClass="leftside" var="doctorV" value="#{doctorrecords.doctors}" editable="true" style="margin-bottom:20px">
+			<f:facet name="header">
+	           Doctor Records
+	        </f:facet>
+	        
+	         <p:ajax event="rowEdit" listener="#{doctorrecords.onRowEdit}" update=":form:msgs" />
+      		 <p:ajax event="rowEditCancel" listener="#{doctorrecords.onRowCancel}" update=":form:msgs" />
+	    	 
+	    	 <p:column headerText="Id">
+	               <h:outputText value="#{doctorV.id}" />
+	              
+	        </p:column>
+ 
+	       <p:column headerText="Name">
+	          
+	               <h:outputText value="#{doctorV.name}" />
+	             
+	          
+	       </p:column>
+	       
+	       <p:column headerText="Address">
+	         
+	              <h:outputText value="#{doctorV.address}" />
+	          
+	       </p:column>
+	       
+	       <p:column headerText="Email">
+	               <h:outputText value="#{doctorV.email}" />
+	       </p:column>
+	       
+	       <p:column headerText="Age">
+	               <h:outputText value="#{doctorV.age}" />
+	       </p:column>
+	       
+	       <p:column headerText="Specialization">
+	               <h:outputText value="#{doctorV.specialization}" />
+	       </p:column>
+	    	 
+	    	 <p:column headerText="Edit" style="width:40px">
+	    	 	<p:commandButton icon="ui-icon-check" oncomplete="PF('edit').show();" actionListener="#{doctorrecords.setDoctor(doctorV)}" update=":edit"/>
+       		 </p:column>
+       		 
+       		 <p:column headerText="Delete" style="width:45px">
+            	<p:commandButton icon="ui-icon-trash"  actionListener="#{doctorrecords.removeDoctor(doctorV)}" update=":form:doctorTable"/>
+       		 </p:column>
+       		 
+		</p:dataTable>
+		</h:form>
+
+
+		<!-- Edit Doctor  -->
+		
+		<p:dialog id="edit"  header="Edit Patient" widgetVar="edit" showEffect="explode" hideEffect="bounce" height="335" width="400">
+		<h:form id="doc_edit">
+			
+				<p:panelGrid columns="2" styleClass="bgImage">
+					
+					<p:outputLabel value="Id" styleClass="font"></p:outputLabel>
+					<p:outputLabel value="#{doctorrecords.doctor.id}" styleClass="font"></p:outputLabel> 
+					 
+					<p:outputLabel value="Name" styleClass="font"></p:outputLabel>
+					<p:inputText value="#{doctorrecords.doctor.name}"></p:inputText>
+					
+					<p:outputLabel value="Address" styleClass="font"></p:outputLabel>
+					<p:inputText value="#{doctorrecords.doctor.address}"></p:inputText>
+					
+					<p:outputLabel value="Email" styleClass="font"></p:outputLabel>
+					<p:inputText value="#{doctorrecords.doctor.email}"></p:inputText>
+					
+					<p:outputLabel value="Age" styleClass="font"></p:outputLabel>
+					<p:inputText value="#{doctorrecords.doctor.age}"></p:inputText>
+					
+					<p:outputLabel value="Password" styleClass="font"></p:outputLabel>
+					<p:inputText value="#{doctorrecords.doctor.password}"></p:inputText>
+					
+					<p:outputLabel value="Specialization" styleClass="font"></p:outputLabel>
+					<p:inputText value="#{doctorrecords.doctor.specialization}"></p:inputText>
+					
+					<f:facet name="footer">
+						<p:commandButton value="Edit" action="#{doctorrecords.updateDoctor()}" icon="ui-icon-check" oncomplete="PF('edit').hide();" update=":form:doctorTable"></p:commandButton>
+					</f:facet>
+					
+				</p:panelGrid>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

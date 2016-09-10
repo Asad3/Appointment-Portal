@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui" 
+xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+	<h:form id="#{title}">
+			<p:growl id="msgs" showDetail="true"/>
+		<p:dataTable id="patientTable" styleClass="leftside" var="patientE" value="#{patients_all.patients}" 
+				editable="true" style="margin-bottom:20px">
+			<f:facet name="header">
+	           Patient Records
+	           <p:commandButton value="Add New Patient" onclick="PF('new').show();" ></p:commandButton>
+	        </f:facet>
+	        
+	         
+	    	 
+	    	 <p:column headerText="Id" >
+	               <h:outputText value="#{patientE.id}" />
+	        </p:column>
+ 
+	       <p:column headerText="Name" >
+	               <h:outputText value="#{patientE.name}" />
+	       </p:column>
+	       
+	       <p:column headerText="Address" >
+	               <h:outputText value="#{patientE.address}" />
+
+	       </p:column>
+	       
+	       <p:column headerText="Email" >
+	               <h:outputText value="#{patientE.email}" />
+	       </p:column>
+	       
+	       <p:column headerText="Age">
+	               <h:outputText value="#{patientE.age}" />
+	       </p:column>
+	    	 
+	       <p:column headerText="Password" >
+	               <h:outputText value="#{patientE.password}" />
+	       </p:column>
+	    	 
+       		 <p:column headerText="Edit" style="width:45px">
+            	<p:commandButton icon="icon-plus-outline" oncomplete="PF('edit').show();" action="#{patients_all.setUpdatePateint(patientE)}" update="#{detail}" />
+       		 </p:column>
+       		 <p:column headerText="Delete" style="width:45px">
+            			<p:commandButton icon="ui-icon-trash"  actionListener="#{patients_all.removePatient(patientE)}" update="patientTable"/>
+       		 		</p:column>
+		</p:dataTable>
+		<p:commandButton value=">>" onclick="#{patients_all.test()}" update=":#{title}:patientTable"></p:commandButton>
+		</h:form>
+		
+		<!-- Edit Patient  -->
+		
+		<p:dialog id="#{detail}"  header="Edit Patient" widgetVar="edit" showEffect="explode" hideEffect="bounce" height="300" width="370">
+		<h:form>
+			
+				<p:panelGrid columns="2" styleClass="bgImage">
+					
+					<p:outputLabel value="Id" styleClass="font"></p:outputLabel>
+					<p:outputLabel value="#{patients_all.updatePateint.id}" styleClass="font"></p:outputLabel> 
+					 
+					<p:outputLabel value="Name" styleClass="font"></p:outputLabel>
+					<p:inputText value="#{patients_all.updatePateint.name}"></p:inputText>
+					
+					<p:outputLabel value="Address" styleClass="font"></p:outputLabel>
+					<p:inputText value="#{patients_all.updatePateint.address}"></p:inputText>
+					
+					<p:outputLabel value="Email" styleClass="font"></p:outputLabel>
+					<p:inputText value="#{patients_all.updatePateint.email}"></p:inputText>
+					
+					<p:outputLabel value="Age" styleClass="font"></p:outputLabel>
+					<p:inputText value="#{patients_all.updatePateint.age}"></p:inputText>
+					
+					<p:outputLabel value="Password" styleClass="font"></p:outputLabel>
+					<p:inputText value="#{patients_all.updatePateint.password}"></p:inputText>
+					
+					<f:facet name="footer">
+						<p:commandButton value="Edit" action="#{patients_all.updatePatient()}" icon="ui-icon-check" oncomplete="PF('edit').hide();" update=":#{title}:patientTable"></p:commandButton>
+					</f:facet>
+					
+				</p:panelGrid>
+		</h:form>
+	</p:dialog>
+   
+   
+   
+   
+   
+</ui:composition>

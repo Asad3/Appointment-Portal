@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui" 
+xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+	<h:form id="form">
+	<p:growl id="msgs" showDetail="true"/>
+		<p:dataTable id="doctorTable" styleClass="leftside" var="doctorV" value="#{doctorrecords.doctors}" editable="true" style="margin-bottom:20px">
+			<f:facet name="header">
+	           Doctor Records
+	        </f:facet>
+	    	 
+	    	 <p:column headerText="Id">
+	               <h:outputText value="#{doctorV.id}" />
+	              
+	        </p:column>
+ 
+	       <p:column headerText="Name">
+	          
+	               <h:outputText value="#{doctorV.name}" />
+	             
+	          
+	       </p:column>
+	       
+	       <p:column headerText="Address">
+	         
+	              <h:outputText value="#{doctorV.address}" />
+	          
+	       </p:column>
+	       
+	       <p:column headerText="Email">
+	               <h:outputText value="#{doctorV.email}" />
+	       </p:column>
+	       
+	       <p:column headerText="Age">
+	               <h:outputText value="#{doctorV.age}" />
+	       </p:column>
+	       
+	       <p:column headerText="Specialization">
+	               <h:outputText value="#{doctorV.specialization}" />
+	       </p:column>
+	    
+		</p:dataTable>
+		</h:form>
+
+	
+</ui:composition>

@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui" 
+xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+	<h:form id="pat_records">
+			<p:growl id="msgs" showDetail="true"/>
+		<p:dataTable id="patientTable" styleClass="leftside" var="patientE" value="#{patients_all.patients}" 
+				editable="true" style="margin-bottom:20px">
+			<f:facet name="header">
+	           Patient Records
+	           
+	        </f:facet>
+	        
+	         
+	    	 
+	    	 <p:column headerText="Id" >
+	               <h:outputText value="#{patientE.id}" />
+	        </p:column>
+ 
+	       <p:column headerText="Name" >
+	               <h:outputText value="#{patientE.name}" />
+	       </p:column>
+	       
+	       <p:column headerText="Address" >
+	               <h:outputText value="#{patientE.address}" />
+
+	       </p:column>
+	       
+	       <p:column headerText="Email" >
+	               <h:outputText value="#{patientE.email}" />
+	       </p:column>
+	       
+	       <p:column headerText="Age">
+	               <h:outputText value="#{patientE.age}" />
+	       </p:column>
+	    	 
+	       <p:column headerText="Password" >
+	               <h:outputText value="#{patientE.password}" />
+	       </p:column>
+	    	 
+		</p:dataTable>
+		</h:form>
+		
+		
+   
+</ui:composition>

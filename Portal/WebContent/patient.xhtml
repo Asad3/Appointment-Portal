@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<title>Patient Home</title>
+		<link rel="stylesheet" type="text/css" href="resources/css/Style.css"/>
+	</h:head>
+
+	<h:body styleClass="bgImage">
+	<p:growl id="msg" autoUpdate="true"/>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Appointment" onclick="PF('appt').show(); PF('follow').hide(); PF('patientrecords').hide(); PF('doctorrecords').hide(); PF('apt').hide();"></p:menuitem>
+			<p:menuitem value="Follow" onclick="PF('follow').show(); PF('apt').hide(); PF('patientrecords').hide(); PF('doctorrecords').hide(); PF('apt').hide();"></p:menuitem>
+			<p:submenu label="Records">
+				<p:menuitem value="Patient" onclick="PF('patientrecords').show(); PF('appt').hide(); PF('follow').hide(); PF('doctorrecords').hide(); PF('apt').hide();" ></p:menuitem>
+				<p:menuitem value="Doctor" onclick="PF('doctorrecords').show(); PF('appt').hide(); PF('follow').hide(); PF('patientrecords').hide(); PF('apt').hide(); " ></p:menuitem>
+				<p:menuitem value="Appointment" onclick="PF('apt').show(); PF('appt').hide(); PF('follow').hide(); PF('patientrecords').hide(); PF('doctorrecords').hide();" ></p:menuitem>
+			</p:submenu>
+		</p:menubar>
+		</h:form>
+		<!-- Appointment Dialog starts -->
+		<p:dialog  header="Appointment" widgetVar="appt" showEffect="explode" hideEffect="bounce" height="500" width="1300" style="margin-left:10px;">
+			<h:form id="parent">
+			
+				<p:panelGrid columns="2">
+					
+					<p:outputLabel value="Appointment Date" styleClass="font"></p:outputLabel>
+					<p:calendar value="#{ManageAppointment.appointmentBean.appointment.appointmentDate}"></p:calendar>
+					
+					
+					<h:outputText value="Patient Id " styleClass="font"></h:outputText>
+					<p:selectOneMenu value="#{ManageAppointment.appointmentBean.patientId}">
+						<p:ajax listener="#{ManageAppointment.onIdChange()}" update="name" />
+						<f:selectItems value="#{ManageAppointment.patientIds}"></f:selectItems>
+						
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Patient Name"></p:outputLabel>
+					<p:outputLabel id="name" value="#{ManageAppointment.patientName}"></p:outputLabel>
+					
+					<h:outputText value="Doctor Id " styleClass="font"></h:outputText>
+					<p:selectOneMenu value="#{ManageAppointment.appointmentBean.doctorId}">
+						<f:selectItems value="#{ManageAppointment.doctorIds}"></f:selectItems>
+					</p:selectOneMenu>
+					
+					<f:facet name="footer">
+						<p:commandButton value="Take Appointment" actionListener="#{ManageAppointment.createAppointment}"  update=":child:aptlist" icon="ui-icon-check">
+						
+							<p:ajax ></p:ajax>
+							
+						</p:commandButton>
+					</f:facet>
+					
+				</p:panelGrid>
+			
+				
+			
+		</h:form>
+		<h:form id="child">
+		<p:dataTable id="aptlist" styleClass="leftside" var="apt" value="#{ManageAppointment.appointments}">
+		    <p:column headerText="Date" styleClass="bgheader">
+		        <h:outputText value="#{apt.appointmentDate}" />
+		    </p:column>
+		 
+		    <p:column headerText="Doctor">
+		        <h:outputText value="#{apt.doctor.name}" />
+		    </p:column>
+		 
+		    <p:column headerText="Patient">
+		        <h:outputText value="#{apt.patient.name}" />
+		    </p:column>
+		     <p:column headerText="Patient Id">
+		        <h:outputText value="#{apt.patient.id}" />
+		    </p:column>
+		</p:dataTable>
+		</h:form>
+		</p:dialog>
+	<!-- Appointment Dialog ends -->
+	
+	<!-- Follow up dialog starts -->
+	<p:dialog header="Follow Up" widgetVar="follow" showEffect="explode" hideEffect="bounce" height="140" width="430">
+	<h:form>
+		
+			<p:panelGrid columns="2">
+								
+				<p:outputLabel value="Follow Up Date" styleClass="font"></p:outputLabel>				
+				<p:calendar value="#{followUpBean.followUpWrapper.followUp.followUpDate}" yearRange="c-100:c" navigator="true"></p:calendar>
+				
+				<h:outputText value="Appointment Id" styleClass="font"></h:outputText>
+				<p:selectOneMenu value="#{followUpBean.followUpWrapper.appointmentId}">
+					<f:selectItems value="#{followUpBean.appointmentIds}"></f:selectItems>
+				</p:selectOneMenu>
+				
+				<f:facet name="footer">
+					<p:commandButton value="Create Follow Up" action="#{followUpBean.createFollowUp}" icon="ui-icon-check"></p:commandButton>
+				</f:facet>
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+	
+	<!-- Patient Records -->
+		<p:dialog  header="Patient Records" widgetVar="patientrecords" showEffect="explode" hideEffect="bounce" height="280" width="1300" style="margin-left:10px;">
+			<ui:include src="records/patients.xhtml" />
+		</p:dialog>
+		
+		
+		<!-- Doctor Records -->
+		<p:dialog  header="Doctor Records" widgetVar="doctorrecords" showEffect="explode" hideEffect="bounce"  width="1300" style="margin-left:10px;">
+			<ui:include src="records/doctorsrecords.xhtml" />
+		</p:dialog>
+		
+		<!-- Appointment Records -->
+		<p:dialog  header="Appointment Records" widgetVar="apt" showEffect="explode" hideEffect="bounce"  width="1300" style="margin-left:10px;">
+			<ui:include src="appointmentinclude.xhtml" />
+		</p:dialog>
+	
+	
+	</h:body>
+
+</html>

@@ -18,8 +18,8 @@ public class PatientRecords {
 	ArrayList<Patient> patients = new ArrayList<Patient>();
 	Patient updatePateint = new Patient();
 	Patient newPatient = new Patient();
-	int min = 0;
-	int max = 3;
+	/*int min = 0;
+	int max = 3;*/
 	
 
 	
@@ -50,7 +50,7 @@ public class PatientRecords {
 	@PostConstruct
 	public void init(){
 		PatientDao patientDao = new PatientDao();
-		patients = patientDao.getAllPatients(min,max);
+		patients = patientDao.getAllPatients();
 	}
 	
 	
@@ -61,7 +61,7 @@ public class PatientRecords {
     	patientDao.deletePatient(patient);
     	FacesMessage msg = new FacesMessage("Patient is deleted");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-    	patients = patientDao.getAllPatients(min,max);
+    	patients = patientDao.getAllPatients();
      }
     
     public void updatePatient(){
@@ -81,10 +81,9 @@ public class PatientRecords {
     }
     
     public void test(){
-    	min = max+1;
-    	max += 3;
+    	
     	PatientDao patientDao = new PatientDao();
     	patients = new ArrayList<Patient>();
-		patients = patientDao.getAllPatients(min,max);
+		patients = patientDao.getAllPatients();
     }
 }
