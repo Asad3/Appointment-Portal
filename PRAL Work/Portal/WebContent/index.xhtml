@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<title>Home</title>
+		<link rel="stylesheet" type="text/css" href="resources/css/Style.css"/>
+		<link rel="stylesheet" type="text/css" href="resources/css/Home.css"/>
+	</h:head>
+
+	<h:body class="bgImage">
+	<p:growl id="msg" autoUpdate="true"/>
+	<h:form>
+		<p:menubar styleClass="meanucolor">
+			<p:menuitem value="Admin Registeration" onclick="PF('adm_reg').show(); PF('adm_login').hide(); PF('doctor_login').hide(); PF('patient').hide(); "></p:menuitem>
+			<p:submenu label="Login">
+				<p:menuitem value="Admin" onclick="PF('adm_login').show(); PF('adm_reg').hide(); PF('doctor_login').hide(); PF('patient').hide();"></p:menuitem>
+				<p:menuitem value="Patient" onclick="PF('patient').show(); PF('doctor_login').hide(); PF('adm_login').hide(); PF('adm_reg').hide();"></p:menuitem>
+				<p:menuitem value="Doctor" onclick="PF('doctor_login').show(); PF('patient').hide(); PF('adm_login').hide(); PF('adm_reg').hide();"></p:menuitem>
+			</p:submenu>
+		</p:menubar>
+		</h:form>
+		<br/>
+		
+		<br/><br/>
+		
+		
+		<!-- admin registration dialog  -->
+		<p:dialog styleClass="bgImage" header="Admin Sign Up" widgetVar="adm_reg" showEffect="explode" hideEffect="bounce" height="250" width="400">
+			<p:messages id="msgs" />
+			<h:form>
+					<p:panelGrid columns="2" styleClass="dialog">
+						
+						<h:outputText value=" Name "></h:outputText>
+						<p:inputText id="name" value="#{admin.admin.name}" required="true" requiredMessage="Name can't be empty" validatorMessage="Name can't contain alphabets">
+							<f:validateLength minimum="3"  />
+							<f:validateRegex pattern="^[a-zA-Z]+$" />
+						</p:inputText>
+						
+						
+						<h:outputText value="Address"></h:outputText>
+						<p:inputText value="#{admin.admin.address}" required="true" requiredMessage="Address can't be empty">
+							<f:validateLength minimum="2"></f:validateLength>
+						</p:inputText>
+						
+						<h:outputText value="Email "></h:outputText>
+						<p:inputText value="#{admin.admin.email}" required="true" requiredMessage="Email can't be empty" validatorMessage="Email is incorrect">
+							<f:validateRegex pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+						</p:inputText>
+						
+						<h:outputText value="Age "></h:outputText>
+						<p:inputText value="#{admin.admin.age}" required="true" requiredMessage="Age can't be empty" validatorMessage="Age is between 1 to 3 digit">
+							<f:validateLength minimum="1" maximum="3"></f:validateLength>
+						</p:inputText>
+						
+						<h:outputText value=" Password"></h:outputText>
+						<p:password value="#{admin.admin.password}" required="true" requiredMessage="Password can't be empty" validatorMessage="Password lenght is atleast 6 characters">
+							<f:validateLength minimum="6"  />
+						</p:password>
+						
+						<f:facet name="footer">
+							<p:commandButton value="Register" action="#{admin.addAdmin}" icon="ui-icon-check"></p:commandButton>
+						</f:facet>
+						
+					</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	
+		<p:dialog styleClass="bgImage" header="Login" widgetVar="adm_login" showEffect="explode" hideEffect="bounce" height="125" width="380">
+			<h:form>
+				
+					<p:panelGrid columns="2" styleClass="bgImage">
+						
+						<h:outputText value="Email "></h:outputText>
+						<p:inputText value="#{admin_login.email}"></p:inputText>
+						
+						<h:outputText value=" Password"></h:outputText>
+						<p:password value="#{admin_login.password}"></p:password>	
+						
+						<f:facet name="footer">
+							<p:commandButton value="Login" action="#{admin_login.authenticateAdmin}" icon="ui-icon-check"></p:commandButton>
+						</f:facet>
+						
+					</p:panelGrid>
+			</h:form>
+		</p:dialog>
+		<!-- Doctor Login ends -->
+		
+		
+		<p:dialog styleClass="bgImage" header="Login" widgetVar="patient" showEffect="explode" hideEffect="bounce" height="150" width="400">
+			<h:form>
+			<p:panelGrid columns="2" styleClass="bgImage">
+				
+				<h:outputText value="Email "></h:outputText>
+				<p:inputText value="#{login.email}"></p:inputText>
+				
+				<h:outputText value=" Password"></h:outputText>
+				<p:password value="#{login.password}"></p:password>
+				
+				<f:facet name="footer">
+					<p:commandButton value="Login" action="#{login.authenticate}" icon="ui-icon-check"></p:commandButton>
+				</f:facet>
+				
+			</p:panelGrid>
+	</h:form>
+		</p:dialog>
+		
+		<!-- Doctor Login ends -->
+		
+			<p:dialog styleClass="bgImage" header="Login" widgetVar="doctor_login" showEffect="explode" hideEffect="bounce" height="150" width="400">
+			<h:form>
+		
+			<p:panelGrid columns="2" styleClass="bgImage">
+				
+				<h:outputText value="Email "></h:outputText>
+				<p:inputText value="#{login_doctor.email}"></p:inputText>
+				
+				<h:outputText value=" Password"></h:outputText>
+				<p:password value="#{login_doctor.password}"></p:password>
+				
+				
+				<f:facet name="footer">
+					<p:commandButton value="Login" action="#{login_doctor.login}" icon="ui-icon-check"></p:commandButton>
+				</f:facet>
+				
+			</p:panelGrid>
+	</h:form>
+		</p:dialog>
+		
+	</h:body>
+
+</html>

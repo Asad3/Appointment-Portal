@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+>
+
+	<h:head>
+		<title>Patient Records</title>
+		<h:outputStylesheet library="css" name="Style.css"  /> 
+	</h:head>
+
+	<h:body class="bgImage">
+
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Vitals" onclick="PF('vitals').show(); PF('test').hide(); PF('leave').hide();"></p:menuitem>
+			<p:menuitem value="Test" onclick="PF('test').show(); PF('vitals').hide(); PF('leave').hide();"></p:menuitem>
+			<p:menuitem value="Leave" onclick="PF('leave').show(); PF('vitals').hide(); PF('test').hide();"></p:menuitem>
+			<p:menuitem value="Appointment Records" url="appointmentrecords.xhtml"></p:menuitem>
+			<p:menuitem value="Patient Records" url="patientrecords.xhtml"></p:menuitem>
+		</p:menubar>
+		</h:form>
+	<br/><br/>
+
+	<h:form id="form">
+	<p:growl id="msgs" showDetail="true"/>
+		<p:dataTable id="patientTable" styleClass="leftside" var="patient" value="#{patients_all.patients}" 
+			filteredValue="#{patients_all.filterRecords}"	editable="true" style="margin-bottom:20px">
+			<f:facet name="header">
+	           Patient Records
+	        </f:facet>
+	        
+	         <p:ajax event="rowEdit" listener="#{patients_all.onRowEdit}" update=":form:msgs" />
+      		 <p:ajax event="rowEditCancel" listener="#{patients_all.onRowCancel}" update=":form:msgs" />
+	    	 
+	    	 <p:column headerText="Id" sortBy="#{patient.id}" >
+	           <p:cellEditor>
+	               <f:facet name="output"><h:outputText value="#{patient.id}" /></f:facet>
+	               <f:facet name="input"><p:inputText id="modelInputId" value="#{patient.id}" style="width:100%"/></f:facet>
+	           </p:cellEditor>
+	        </p:column>
+ 
+	       <p:column headerText="Name" sortBy="#{patient.name}">
+	           <p:cellEditor>
+	               <f:facet name="output"><h:outputText value="#{patient.name}" /></f:facet>
+	               <f:facet name="input"><p:inputText id="modelInputName" value="#{patient.name}" style="width:100%" label="Year"/></f:facet>
+	           </p:cellEditor>
+	       </p:column>
+	       
+	       <p:column headerText="Address">
+	           <p:cellEditor>
+	               <f:facet name="output"><h:outputText value="#{patient.address}" /></f:facet>
+	               <f:facet name="input"><p:inputText id="modelInputAddress" value="#{patient.address}" style="width:100%" label="Year"/></f:facet>
+	           </p:cellEditor>
+	       </p:column>
+	       
+	       <p:column headerText="Email">
+	           <p:cellEditor>
+	               <f:facet name="output"><h:outputText value="#{patient.email}" /></f:facet>
+	               <f:facet name="input"><p:inputText id="modelInputEmail" value="#{patient.email}" style="width:100%" label="Year"/></f:facet>
+	           </p:cellEditor>
+	       </p:column>
+	       
+	       <p:column headerText="Age">
+	           <p:cellEditor>
+	               <f:facet name="output"><h:outputText value="#{patient.age}" /></f:facet>
+	               <f:facet name="input"><p:inputText id="modelInputAge" value="#{patient.age}" style="width:100%" label="Year"/></f:facet>
+	           </p:cellEditor>
+	       </p:column>
+	    	 
+	    	 <p:column headerText="Edit" style="width:32px">
+            	<p:rowEditor />
+       		 </p:column>
+       		 <p:column headerText="Delete" style="width:45px">
+            	<p:commandButton icon="ui-icon-trash"  actionListener="#{patients_all.removePatient(patient)}" update="patientTable"/>
+       		 </p:column>
+		</p:dataTable>
+		</h:form>
+	</h:body>
+
+</html>
